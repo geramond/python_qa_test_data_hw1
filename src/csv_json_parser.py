@@ -7,25 +7,22 @@ books_list = []
 user_dict = {}
 user_list = []
 
-data = []
+BOOK_HEADER = ('title', 'author', 'pages', 'genre')
+JSON_HEADER = ('name', 'gender', 'address', 'age', 'books')
 
 with open('../examples/data/books.csv', newline='') as f1, open('../examples/data/users.json', newline='') as f2:
-    reader1 = csv.reader(f1)
+    reader1 = csv.DictReader(f1)
     header = next(reader1)
 
     for row in reader1:
-        book_dict['title'] = row[0]
-        book_dict['author'] = row[1]
-        book_dict['pages'] = row[3]
-        book_dict['genre'] = row[2]
+        book_dict_row = (row['Title'], row['Author'], row['Pages'], row['Genre'])
+        book_dict = dict(zip(BOOK_HEADER, book_dict_row))
         books_list.append(book_dict)
 
     users = json.loads(f2.read())
     for user in users:
-        user_dict['name'] = user['name']
-        user_dict['gender'] = user['gender']
-        user_dict['address'] = user['address']
-        user_dict['age'] = user['age']
+        user_dict_row = (user['name'], user['gender'], user['address'], user['age'], [])
+        user_dict = dict(zip(JSON_HEADER, user_dict_row))
         user_list.append(user_dict)
 
     number_of_users = len(user_list)
