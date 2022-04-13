@@ -29,7 +29,8 @@ with open('../examples/data/books.csv', newline='') as f1, open('../examples/dat
     usr_count = 0
 
     for book in books_list:
-        user_list[usr_count]["books"] = book
+        user_list[usr_count]["books"].append(book)
+
         usr_count += 1
         if usr_count >= number_of_users:
             usr_count = 0
